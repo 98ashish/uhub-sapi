@@ -1,0 +1,8 @@
+create ec2 with amazon ami free tier, create a security group allowing all traffic
+while creating instance in step 3 mention user data as the bash file.
+
+get initial password
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+set inbound security group as 
+All	All	0.0.0.0/0

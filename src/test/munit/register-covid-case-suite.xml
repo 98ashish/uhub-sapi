@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<munit:config name="register-covid-case-suite.xml" />
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="fbf11c91-3da0-442b-bbea-90d6ba87e4d4" basePath="/api">
+		<http:request-connection host="localhost" port="8081" />
+	</http:request-config>
+	<munit:test name="post:\cases:application\json:uhub-sapi-config-test" doc:id="3e268d5b-e85e-48eb-bce1-80141b5e4c36" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Flow Reference" doc:id="e7409fd9-574d-489e-b976-43e39cd5f847" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="585821d6-f46e-4671-8a8e-4b5a8323a1d6" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://postcasesapplicationjsonuhubsapiconfigtest\mock_payload1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://postcasesapplicationjsonuhubsapiconfigtest\mock_variable_1.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:spy doc:name="Spy Build payload" doc:id="005e9b81-7366-4d67-9cfc-0895baa8e40e" processor="ee:transform">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="e058adec-71af-4e6c-8e25-62ced3ff05f9" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="dade7647-e2a0-4478-a890-0f0e56383932" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import postcasesapplicationjsonuhubsapiconfigtest::spy_assert_payload
+---
+spy_assert_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="df4e3af1-c39e-4f40-bd7d-7b9f79efb0c3" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import postcasesapplicationjsonuhubsapiconfigtest::spy_assert_payload1
+---
+spy_assert_payload1::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit-tools:spy doc:name="Spy Build Response" doc:id="9f594ad9-b514-4384-b53e-2b159c668a2e" processor="ee:transform">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="38590057-bc3f-4d0f-a214-0dd86c49c0ce" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="afbd80a7-af4b-46fc-8514-3287ee6c1540" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import postcasesapplicationjsonuhubsapiconfigtest::spy_assert_payload2
+---
+spy_assert_payload2::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="a7f0ef2b-1d5f-4a4a-9f11-9d78fbd2deb7" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import postcasesapplicationjsonuhubsapiconfigtest::spy_assert_payload3
+---
+spy_assert_payload3::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="1e9e5989-9f0f-4e6b-ab62-122e9fa7665f">
+				<munit:payload value="#[output application/json --- readUrl('classpath://postcasesapplicationjsonuhubsapiconfigtest\set-event_payload1.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://postcasesapplicationjsonuhubsapiconfigtest\set-event_attributes1.dwl')]" />
+				<munit:variables>
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://postcasesapplicationjsonuhubsapiconfigtest\set-event_variable_1.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\cases:application\json:uhub-sapi-config" doc:id="3c74a9fa-44b4-4bdb-b4a8-de16dffdfc04" name="post:\cases:application\json:uhub-sapi-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="42f695da-fd88-40c9-9e1e-f1168a988ea4" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import postcasesapplicationjsonuhubsapiconfigtest::assert_expression_payload1
+---
+assert_expression_payload1::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Build payload" doc:id="031f5e7e-c172-4a11-a3a2-476c3b34b0bc" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="e058adec-71af-4e6c-8e25-62ced3ff05f9" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Build Response" doc:id="c9016df5-dd37-45e4-9a00-dac5ca173732" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="38590057-bc3f-4d0f-a214-0dd86c49c0ce" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="insert-covid-case-sub-flow-test" doc:id="39606f19-0694-4bd7-83e1-8c25ab6a9833" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Insert" doc:id="1d8a4678-82e8-4d58-b9fa-76bc0eeac768" processor="db:insert">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="427217de-04a2-41e6-82f5-7aab894d8c76" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://insertcovidcasesubflowtest\mock_payload.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://insertcovidcasesubflowtest\mock_variable_.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="cc4d7032-d754-4ddb-9fc4-3914b5d118c2">
+				<munit:payload value="#[output application/json --- readUrl('classpath://insertcovidcasesubflowtest\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://insertcovidcasesubflowtest\set-event_attributes.dwl')]" />
+				<munit:variables>
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://insertcovidcasesubflowtest\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to insert-covid-case-sub-flow" doc:id="ab695227-174b-440f-8205-5387fb6e9f7b" name="insert-covid-case-sub-flow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="9f8ba66c-5cf3-4a4d-90c7-9b3079276a1a" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import insertcovidcasesubflowtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<!--  <munit:test name="uhub-sapi-main-test-400" doc:id="1182197d-0308-4d0a-b350-0a334877ac00" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock APIkit Router" doc:id="e6acd738-7b12-4915-8318-026008acd1ac" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fb6aaf1b-a858-44aa-af1a-6297dc5183d8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json -&#45;&#45; readUrl('classpath://uhubsapimaintest\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://uhubsapimaintest\mock_variable_2.dwl')]" />
+						<munit-tools:variable key="httpStatus" value="#[readUrl('classpath://uhubsapimaintest\mock_variable_3.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<set-payload value="#[output application/json -&#45;&#45; readUrl('classpath://uhubsapimaintest\set-event_payload3.dwl')]" doc:name="Set Payload" doc:id="e7e72087-9f68-4e97-843c-bcba81752ccc" />
+			<try doc:name="Try" doc:id="33063241-3624-4454-a042-6b8f5bd7f232" >
+				<http:request method="POST" doc:name="Request" doc:id="597fc518-3caf-4a0c-9dc3-300685d0a0cc" config-ref="HTTP_Request_configuration" path="/cases" responseTimeout="120000" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="6f5a3ed9-a0c7-409d-8cf7-fa499c967b09" >
+						<logger level="INFO" doc:name="Logger" doc:id="768d8758-95e7-41d4-a371-18f664798d29" />
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="108aef5d-229e-4fa4-9262-788301abf060" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import uhubsapimaintest::assert_expression_payload3
+-&#45;&#45;
+assert_expression_payload3::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>-->
+<munit:test name="uhub-sapi-main-test" doc:id="0878c2e5-d1d7-4aa5-848b-7ca37af1a5cd" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock APIkit Router" doc:id="1bb14fcd-a457-4c89-bf7f-17c9f2c22d90" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fb6aaf1b-a858-44aa-af1a-6297dc5183d8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://uhubsapimaintest\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://uhubsapimaintest\mock_variable_2.dwl')]" />
+						<munit-tools:variable key="httpStatus" value="#[readUrl('classpath://uhubsapimaintest\mock_variable_3.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="dcc2ab93-90f8-4b34-9839-124f5afb59ea">
+				<munit:payload value="#[output application/json --- readUrl('classpath://uhubsapimaintest\set-event_payload3.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://uhubsapimaintest\set-event_attributes3.dwl')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to uhub-sapi-main" doc:id="12e74a08-48fd-4b03-a862-1edd3645f55a" name="uhub-sapi-main"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="cddb80e6-1a0d-4336-a13e-3d9e04dd4c6d" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import uhubsapimaintest::assert_expression_payload3
+---
+assert_expression_payload3::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+</mule>

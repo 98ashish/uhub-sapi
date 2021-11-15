@@ -1,0 +1,4 @@
+we have an ec2 instance for jenkins.
+now we create an artifact repository as s3 bucket,
+we create a bucket in s3 and then create a s3fullaccess role from IAM, assign this iam role to ec2 which runs 
+jenkins.

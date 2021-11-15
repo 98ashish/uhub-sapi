@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd  http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd  http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+    <http:listener-config name="uhub-sapi-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+    </http:listener-config>
+    <apikit:config name="uhub-sapi-config" api="resource::bcfa45a9-414b-4f8b-afdd-3b74cf25e8f7:uhub-sapi:1.0.1:raml:zip:uhub-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <configuration-properties doc:name="Configuration properties" doc:id="cb77e2a6-c21c-4d27-8e31-f6f8437dddda" file="properties/${env}.properties" />
+    <db:config name="Database_Config" doc:name="Database Config" doc:id="d4984db4-955a-4272-9b31-5ab5baffd749">
+        <db:oracle-connection host="${secure::db.host}" port="${secure::db.port}" user="${secure::db.user}" password="${secure::db.password}" instance="${secure::db.sid}" />
+    </db:config>
+    <global-property doc:name="Global Property" doc:id="9af0d750-5e14-468a-bbd5-64241468bd5d" name="sec.key" value="ashish" />
+    <secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="9ac22b6f-2580-4276-9d8a-8a5f2a92e675" file="properties/${env}.properties" key="${sec.key}">
+        <secure-properties:encrypt algorithm="Blowfish" />
+    </secure-properties:config>
+    <global-property doc:name="Global Property" doc:id="a4e06771-0426-45a2-99b6-5a5e09e1b258" name="env" value="dev" />
+</mule>
