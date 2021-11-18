@@ -121,6 +121,7 @@
 			<artifactId>uhub-sapi</artifactId>
 			<version>1.0.1</version>
 			<classifier>raml</classifier>
+			 <scope>runtime</scope>
 			<type>zip</type>
 		</dependency>
 		<!--  <dependency>
